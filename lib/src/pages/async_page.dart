@@ -32,8 +32,8 @@ class AsyncPageState extends PageState<AsyncPageBuilder> with ChangeNotifier {
   void initState() {
     super.initState();
 
-    _routemaster!._delegate.addListener(() {
-      if (_routemaster!.currentRoute != routeData) {
+    _routemasterState!.delegate.addListener(() {
+      if (_routemasterState!.currentConfiguration != routeData) {
         // A navigation has occurred, stop listening to async events
         _subscription.cancel();
         _status._isCancelled = true;
@@ -53,7 +53,7 @@ class AsyncPageState extends PageState<AsyncPageBuilder> with ChangeNotifier {
 
     final newPage = newRoute as Page;
 
-    final result = _routemaster!._delegate._createPageWrapper(
+    final result = _routemasterState!.delegate._createPageWrapper(
       uri: routeData._uri,
       page: newPage,
       routeData: routeData,
@@ -61,7 +61,7 @@ class AsyncPageState extends PageState<AsyncPageBuilder> with ChangeNotifier {
     );
 
     if (result is _NotFoundResult) {
-      _currentPage = _routemaster!._delegate
+      _currentPage = _routemasterState!.delegate
           ._onUnknownRoute(
             _RouteRequest(
               requestSource: routeData.requestSource,
@@ -72,7 +72,7 @@ class AsyncPageState extends PageState<AsyncPageBuilder> with ChangeNotifier {
           .first;
     } else if (result is _RedirectResult) {
       print('Redirecting to ${result.redirectPath}');
-      _routemaster!.replace(result.redirectPath);
+      _routemasterState!.delegate.replace(result.redirectPath);
     } else if (result is _PageWrapperResult) {
       _currentPage = result.pageWrapper;
     }
