@@ -1280,7 +1280,6 @@ class PageStackNavigatorState extends State<PageStackNavigator> {
     setState(() {
       _updateNavigator();
     });
-    print('_updateNavigator');
   }
 
   void _updateDelegate() {
