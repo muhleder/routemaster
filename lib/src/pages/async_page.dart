@@ -49,7 +49,6 @@ class AsyncPageState extends PageState<AsyncPageBuilder> with ChangeNotifier {
   }
 
   void _onPage(RouteSettings newRoute) {
-    print('Async page updated');
 
     final newPage = newRoute as Page;
 
@@ -71,7 +70,6 @@ class AsyncPageState extends PageState<AsyncPageBuilder> with ChangeNotifier {
           )
           .first;
     } else if (result is _RedirectResult) {
-      print('Redirecting to ${result.redirectPath}');
       _routemasterState!.delegate.replace(result.redirectPath);
     } else if (result is _PageWrapperResult) {
       _currentPage = result.pageWrapper;
